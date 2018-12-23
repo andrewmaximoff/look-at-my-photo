@@ -1,0 +1,1 @@
+web: gunicorn LookAtMyPhoto.wsgi
