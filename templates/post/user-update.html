@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Edit profile • Look at my photo{% endblock %}
+
+{% block main %}
+  <div class="page form-page">
+    <div class="form">
+      <div class="header logo">
+          <h1>Edit profile</h1>
+      </div>
+      <div class="form-block">
+        <form enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          {% if form.errors %}
+              {% for field in form %}
+                  {% for error in field.errors %}
+                      <div class="alert alert-danger">
+                          <strong>{{ error|escape }} {{ field.name }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                  <div class="alert alert-danger">
+                      <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endif %}
+          <div class="form-row">
+            <label for="id_avatar">Avatar:</label>
+            <input class="form-input" type="file" name="avatar" accept="image/*" id="id_avatar">
+          </div>
+           <div class="form-row">
+            <label for="id_username">Username:</label>
+            <input class="form-input" type="text" name="username" accept="image/*"
+                   id="id_username" value="{{ object.user.username }}">
+          </div>
+          <div class="form-row">
+            <label for="id_bio">Bio:</label>
+            <textarea class="form-input" name="bio" cols="40" rows="10" maxlength="500" id="id_bio">{{ object.bio }}</textarea>
+          </div>
+          <button class="primaryAction" type="submit">Save!</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

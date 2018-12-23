@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load liked %}
+
+{% block title %}Post by {{ object.user.username }} • Look at my photo{% endblock %}
+
+{% block main %}
+
+  <div class="page-post-detail page">
+    <div class="post-detail-grid">
+      <div class="post-detail__profile">
+        <div class="profile__avatar">
+          <a href="{% url 'user detail' object.user.username %}">
+            {% if object.user.profile.avatar %}
+              <img class="image-fit-placeholder" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Avatar" />
+              <img class="rounded-circle img-fluid img-wrap" src="{{ object.user.profile.avatar.url }}" >
+            {% endif %}
+          </a>
+        </div>
+        <div class="username">
+          <a href="{% url 'user detail' object.user.username %}">{{ object.user.username }}</a>
+        </div>
+      </div>
+      <div class="post-detail-img">
+        <img class="post-detail-img" src="{{ object.image.url }}" alt="{{ object.description }}">
+      </div>
+      <div class="action-bar">
+        <div class="like">
+          {% if object|is_liked:request.user.username %}
+            <a href="{% url 'dislike' object.slug %}"><i class="fas fa-heart like-img"></i></a>
+          {% else %}
+            <a href="{% url 'like' object.slug %}"><i class="far fa-heart like-img"></i></a>
+          {% endif %}
+        </div>
+        <div class="like-count">
+          {{ object.total_likes }}
+        </div>
+      </div>
+    {% if object.description %}
+      <div class="description">
+        <b>{{ object.user.username }}</b> • {{ object.description }}
+      </div>
+    {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

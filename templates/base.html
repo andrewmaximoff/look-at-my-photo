@@ -1,0 +1,70 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block title %}{% endblock %}</title>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="{% static 'css/main.css' %}?v={% now "jS F Y H:i" %}">
+  <link rel="stylesheet" href="{% static 'css/login.css' %}?v={% now "jS F Y H:i" %}">
+  <link rel="stylesheet" href="{% static 'css/reset.css' %}?v={% now "jS F Y H:i" %}">
+  <link rel="stylesheet" href="{% static 'css/alert.css' %}?v={% now "jS F Y H:i" %}">
+
+  <!-- Add FontAwesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header header-border-bottom">
+    <div class="page navbar">
+      <a class="nav-item" href="{% url 'feed list' %}">LookAtMyPhoto</a>
+      {% if request.user.is_authenticated %}
+        <a class="nav-item push-right" href="{% url 'post create' %}">New Post</a>
+        <a class="nav-item" href="{% url 'user detail' request.user.username %}">
+          <span class="nav-username">{{ request.user.username }}</span><i class="far fa-user"></i>
+        </a>
+        <div class="nav-item">
+          <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button class="btn-link" type="submit">Sign Out</button>
+          </form>
+        </div>
+      {% else %}
+        <a class="nav-item push-right" href="{% url 'account_login' %}">Log In</a>
+      {% endif %}
+    </div>
+  </header>
+  <!-- Header -->
+
+  <!-- Main -->
+  <main role="main" class="main">
+    {% block main %}
+    {% endblock %}
+  </main>
+  <!-- Main -->
+
+  <!-- Footer -->
+  <footer class="footer">
+
+    <!-- Copyright -->
+    <div class="page">© 2018 Maximoff</div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->
+
+  <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+  <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'js/infinite.min.js' %}"></script>
+  {% block javascript %}{% endblock %}
+
+</body>
+</html>
