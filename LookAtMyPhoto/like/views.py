@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.http import Http404
 
 from .models import Like
-from post.models import Post
+from LookAtMyPhoto.post.models import Post
 
 
 @login_required

@@ -4,9 +4,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView, MultipleObjectMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
 
-from accounts.models import Follower
+from LookAtMyPhoto.accounts.models import Follower
 from .models import Post
 
 User = get_user_model()

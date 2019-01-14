@@ -5,7 +5,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 from django.conf import settings
 from django.db import models
 
-from like.models import Like
+from LookAtMyPhoto.like.models import Like
 
 
 def get_image_path(instance, filename):

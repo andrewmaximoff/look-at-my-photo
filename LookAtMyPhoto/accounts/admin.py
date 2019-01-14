@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from .models import User, Profile
-from post.models import Post
+from LookAtMyPhoto.post.models import Post
 
 
 class ProfileAdmin(admin.ModelAdmin):
